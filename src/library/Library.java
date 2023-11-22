@@ -76,7 +76,7 @@ public class Library {
         }
         if (filters.containsKey("genre")) {
             String genre = (String)filters.get("genre");
-            filtered_songs.removeIf(song -> !song.getGenre().equals(genre));
+            filtered_songs.removeIf(song -> song.getGenre().compareToIgnoreCase(genre) != 0);
         }
         if (filters.containsKey("releaseYear")) {
             String yearCondition = (String)filters.get("releaseYear");

@@ -11,14 +11,6 @@ import library.User;
 public class SelectCommand extends Command {
     private Integer itemNumber;
 
-    public SelectCommand() {
-    }
-
-    @Override
-    public String getCommand() {
-        return "select";
-    }
-
     public Integer getItemNumber() {
         return itemNumber;
     }

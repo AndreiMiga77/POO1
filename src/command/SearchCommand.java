@@ -14,14 +14,6 @@ public class SearchCommand extends Command {
     private String type;
     private Map<String, Object> filters;
 
-    public SearchCommand() {
-    }
-
-    @Override
-    public String getCommand() {
-        return "search";
-    }
-
     public String getType() {
         return type;
     }
@@ -50,14 +42,14 @@ public class SearchCommand extends Command {
             for (Song song : songs.subList(0, search_size))
                 names.add(song.getName());
             user.setLastSearch(songs.subList(0, search_size));
-            message = "Search returned " + songs.size() + " results";
+            message = "Search returned " + search_size + " results";
         } else if (type.equals("podcast")) {
             ArrayList<Podcast> podcasts = library.findPodcastsByFilter(filters);
             int search_size = Math.min(podcasts.size(), 5);
             for (Podcast podcast : podcasts.subList(0, search_size))
                 names.add(podcast.getName());
             user.setLastSearch(podcasts.subList(0, search_size));
-            message = "Search returned " + podcasts.size() + " results";
+            message = "Search returned " + search_size + " results";
         }
         return new SearchCommandOutput(getUsername(), getTimestamp(), message, names);
     }
