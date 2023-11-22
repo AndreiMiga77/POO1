@@ -1,10 +1,26 @@
 package command;
 
 import command.output.CommandOutput;
+import command.output.LoadCommandOutput;
+import library.Library;
+import library.Playable;
+import library.User;
+
+import java.util.List;
 
 public class LoadCommand extends Command {
     @Override
     public CommandOutput execute() {
-        return null;
+        Library library = Library.getInstance();
+        User user = library.findUser(getUsername());
+        List<Playable> lastSearch = user.getLastSearch();
+        String message;
+        if (lastSearch == null || user.getSelectedSource() < 0)
+            message = "Please select a source before attempting to load.";
+        else {
+            user.getPlayer().load(lastSearch.get(user.getSelectedSource()));
+            message = "Playback loaded successfully.";
+        }
+        return new LoadCommandOutput(getUsername(), getTimestamp(), message);
     }
 }

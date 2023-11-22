@@ -36,6 +36,9 @@ public class SearchCommand extends Command {
         User user = library.findUser(getUsername());
         ArrayList<String> names = new ArrayList<>(5);
         String message = null;
+
+        user.setSelectedSource(-1);
+
         if (type.equals("song")) {
             ArrayList<Song> songs = library.findSongsByFilter(filters);
             int search_size = Math.min(songs.size(), 5);

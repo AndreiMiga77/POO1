@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import fileio.input.PodcastInput;
 import fileio.input.EpisodeInput;
+import lombok.Builder;
 
 public class Podcast implements Playable {
     private String name;
@@ -34,5 +35,33 @@ public class Podcast implements Playable {
 
     public List<PodcastEpisode> getEpisodes() {
         return Collections.unmodifiableList(episodes);
+    }
+
+    @Override
+    public int getDuration() {
+        int duration = 0;
+        for (PodcastEpisode episode : episodes)
+            duration += episode.getDuration();
+        return duration;
+    }
+
+    @Override
+    public int getNumTracks() {
+        return episodes.size();
+    }
+
+    @Override
+    public int getTrackDuration(int i) {
+        return episodes.get(i).getDuration();
+    }
+
+    @Override
+    public boolean allowsShuffling() {
+        return false;
+    }
+
+    @Override
+    public boolean remembersTimestamp() {
+        return true;
     }
 }

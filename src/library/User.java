@@ -2,6 +2,8 @@ package library;
 
 import fileio.input.UserInput;
 
+import engine.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,11 +14,14 @@ public class User {
     private String city;
     private List<? extends Playable> lastSearch;
     private int selectedSource;
+    private Player player;
 
     public User(UserInput input) {
         username = input.getUsername();
         age = input.getAge();
         city = input.getCity();
+        selectedSource = -1;
+        player = new Player();
     }
 
     public String getUsername() {
@@ -45,5 +50,9 @@ public class User {
 
     public void setSelectedSource(int selectedSource) {
         this.selectedSource = selectedSource;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

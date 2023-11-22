@@ -1,21 +1,13 @@
 package command.output;
 
-import command.output.CommandOutput;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-
-public class SearchCommandOutput extends CommandOutput {
+public class LoadCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
     private String message;
-    private ArrayList<String> results;
-    public SearchCommandOutput(String user, Integer timestamp, String message, List<String> results) {
+    public LoadCommandOutput(String user, Integer timestamp, String message) {
         this.user = user;
         this.timestamp = timestamp;
         this.message = message;
-        this.results = new ArrayList<>(results);
     }
 
     public String getUser() {
@@ -32,10 +24,6 @@ public class SearchCommandOutput extends CommandOutput {
 
     public void setTimestamp(Integer timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public List<String> getResults() {
-        return Collections.unmodifiableList(results);
     }
 
     public String getMessage() {

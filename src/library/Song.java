@@ -32,6 +32,7 @@ public class Song implements Playable {
         return name;
     }
 
+    @Override
     public int getDuration() {
         return duration;
     }
@@ -58,5 +59,25 @@ public class Song implements Playable {
 
     public String getArtist() {
         return artist;
+    }
+
+    @Override
+    public int getNumTracks() {
+        return 1;
+    }
+
+    @Override
+    public int getTrackDuration(int i) {
+        return getDuration();
+    }
+
+    @Override
+    public boolean allowsShuffling() {
+        return false;
+    }
+
+    @Override
+    public boolean remembersTimestamp() {
+        return false;
     }
 }

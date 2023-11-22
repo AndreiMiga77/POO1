@@ -1,13 +1,16 @@
 package command.output;
 
-public class SelectCommandOutput extends CommandOutput {
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+public class StatusCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
-    private String message;
-    public SelectCommandOutput(String user, Integer timestamp, String message) {
+    LinkedHashMap<String, Object> stats;
+    public StatusCommandOutput(String user, Integer timestamp, LinkedHashMap<String, Object> stats) {
         this.user = user;
         this.timestamp = timestamp;
-        this.message = message;
+        this.stats = stats;
     }
 
     public String getUser() {
@@ -26,11 +29,11 @@ public class SelectCommandOutput extends CommandOutput {
         this.timestamp = timestamp;
     }
 
-    public String getMessage() {
-        return message;
+    public HashMap<String, Object> getStats() {
+        return stats;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setStats(LinkedHashMap<String, Object> stats) {
+        this.stats = stats;
     }
 }

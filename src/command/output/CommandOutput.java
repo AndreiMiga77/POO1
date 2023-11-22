@@ -14,8 +14,8 @@ import command.SelectCommand;
 @JsonSubTypes({
         @Type(value = SearchCommandOutput.class, name = "search"),
         @Type(value = SelectCommandOutput.class, name = "select"),
-//        @Type(value = LoadCommandOutput.class, name = "load"),
-//        @Type(value = PlayPauseCommandOutput.class, name = "playPause"),
+        @Type(value = LoadCommandOutput.class, name = "load"),
+        @Type(value = PlayPauseCommandOutput.class, name = "playPause"),
 //        @Type(value = RepeatCommandOutput.class, name = "repeat"),
 //        @Type(value = ShuffleCommandOutput.class, name = "shuffle"),
 //        @Type(value = ForwardCommandOutput.class, name = "forward"),
@@ -24,7 +24,7 @@ import command.SelectCommand;
 //        @Type(value = NextCommandOutput.class, name = "next"),
 //        @Type(value = PrevCommandOutput.class, name = "prev"),
 //        @Type(value = AddRemoveInPlaylistCommandOutput.class, name = "addRemoveInPlaylist"),
-//        @Type(value = StatusCommandOutput.class, name = "status"),
+        @Type(value = StatusCommandOutput.class, name = "status"),
 //        @Type(value = CreatePlaylistCommandOutput.class, name = "createPlaylist"),
 //        @Type(value = SwitchVisibilityCommandOutput.class, name = "switchVisibility"),
 //        @Type(value = FollowCommandOutput.class, name = "follow"),
@@ -34,37 +34,4 @@ import command.SelectCommand;
 //        @Type(value = GetTop5PlaylistsCommandOutput.class, name = "getTop5Playlists"),
 })
 public abstract class CommandOutput {
-    private String user;
-    private Integer timestamp;
-    private String message;
-
-    public CommandOutput(String user, Integer timestamp, String message) {
-        this.user = user;
-        this.timestamp = timestamp;
-        this.message = message;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public Integer getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Integer timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

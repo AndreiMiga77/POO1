@@ -52,6 +52,12 @@ public class Library {
         return Collections.unmodifiableList(podcasts);
     }
 
+    public void tickTime(int dif) {
+        for (User u : users) {
+            u.getPlayer().tickTime(dif);
+        }
+    }
+
     public User findUser(String username) {
         return users.stream().filter(user -> user.getUsername().equals(username)).findAny().orElse(null);
     }
