@@ -13,4 +13,9 @@ public class SelectCommand extends Command {
     public void setItemNumber(Integer itemNumber) {
         this.itemNumber = itemNumber;
     }
+
+    @Override
+    public CommandOutput execute() {
+        return null;
+    }
 }

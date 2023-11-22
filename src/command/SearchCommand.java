@@ -24,4 +24,9 @@ public class SearchCommand extends Command {
     public void setFilters(Map<String, Object> filters) {
         this.filters = filters;
     }
+
+    @Override
+    public CommandOutput execute() {
+        return null;
+    }
 }

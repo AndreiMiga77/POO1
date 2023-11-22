@@ -5,6 +5,8 @@ import checker.CheckerConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import command.CommandOutput;
+import engine.CommandProcessor;
 import fileio.input.LibraryInput;
 import command.Command;
 
@@ -75,6 +77,10 @@ public final class Main {
         ArrayNode outputs = objectMapper.createArrayNode();
 
         Command[] commands = objectMapper.readValue(Paths.get("input", filePathInput).toFile(), Command[].class);
+        for (Command command : commands) {
+            CommandOutput output = CommandProcessor.getInstance().execute(command);
+            outputs.add(1);
+        }
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePathOutput), outputs);

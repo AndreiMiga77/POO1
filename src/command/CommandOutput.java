@@ -1,21 +1,17 @@
 package command;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "command"
-)
-@JsonSubTypes({
-        @Type(value = SearchCommand.class, name = "search"),
-        @Type(value = SelectCommand.class, name = "select"),
-})
-public abstract class Command {
+public class CommandOutput {
     private String command;
     private String username;
     private Integer timestamp;
+    private String message;
+
+    public CommandOutput(String command, String username, Integer timestamp, String message) {
+        this.command = command;
+        this.username = username;
+        this.timestamp = timestamp;
+        this.message = message;
+    }
 
     public String getCommand() {
         return command;
@@ -41,5 +37,11 @@ public abstract class Command {
         this.timestamp = timestamp;
     }
 
-    public abstract CommandOutput execute();
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
