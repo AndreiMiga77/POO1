@@ -15,6 +15,7 @@ public class Song implements Playable {
     private final String genre;
     private final int releaseYear;
     private final String artist;
+    private int likes;
 
     public Song(SongInput input) {
         name = input.getName();
@@ -61,6 +62,18 @@ public class Song implements Playable {
         return artist;
     }
 
+    public int getFollowers() {
+        return likes;
+    }
+
+    public void addFollower() {
+        likes++;
+    }
+
+    public void removeFollower() {
+        likes--;
+    }
+
     @Override
     public int getNumTracks() {
         return 1;
@@ -69,6 +82,16 @@ public class Song implements Playable {
     @Override
     public int getTrackDuration(int i) {
         return getDuration();
+    }
+
+    @Override
+    public boolean allowsLike() {
+        return true;
+    }
+
+    @Override
+    public boolean allowsFollow() {
+        return false;
     }
 
     @Override

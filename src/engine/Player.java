@@ -18,6 +18,8 @@ public class Player {
             return;
         if (isPaused())
             return;
+        if (current.getNumTracks() <= 0)
+            return;
         int newTime = currentTime + dif;
         if (newTime >= current.getTrackDuration(currentTrackId)) {
             if (current.getNumTracks() == currentTrackId + 1)

@@ -63,53 +63,78 @@ public class Library {
     }
 
     public ArrayList<Song> findSongsByFilter(Map<String, Object> filters) {
-        ArrayList<Song> filtered_songs = new ArrayList<>(songs);
+        ArrayList<Song> filteredSongs = new ArrayList<>(songs);
         if (filters.containsKey("name")) {
             String name = (String)filters.get("name");
-            filtered_songs.removeIf(song -> !song.getName().startsWith(name));
+            filteredSongs.removeIf(song -> !song.getName().startsWith(name));
         }
         if (filters.containsKey("album")) {
             String album = (String)filters.get("album");
-            filtered_songs.removeIf(song -> !song.getAlbum().equals(album));
+            filteredSongs.removeIf(song -> !song.getAlbum().equals(album));
         }
         if (filters.containsKey("tags")) {
             List<String> tags = (List<String>)filters.get("tags");
-            filtered_songs.removeIf(song -> !new HashSet<>(song.getTags()).containsAll(tags));
+            filteredSongs.removeIf(song -> !new HashSet<>(song.getTags()).containsAll(tags));
         }
         if (filters.containsKey("lyrics")) {
             String lyric = (String)filters.get("lyrics");
-            filtered_songs.removeIf(song -> !song.getLyrics().contains(lyric));
+            filteredSongs.removeIf(song -> !song.getLyrics().contains(lyric));
         }
         if (filters.containsKey("genre")) {
             String genre = (String)filters.get("genre");
-            filtered_songs.removeIf(song -> song.getGenre().compareToIgnoreCase(genre) != 0);
+            filteredSongs.removeIf(song -> song.getGenre().compareToIgnoreCase(genre) != 0);
         }
         if (filters.containsKey("releaseYear")) {
             String yearCondition = (String)filters.get("releaseYear");
             int year = Integer.parseInt(yearCondition.substring(1));
             if (yearCondition.charAt(0) == '<') {
-                filtered_songs.removeIf(song -> song.getReleaseYear() >= year);
+                filteredSongs.removeIf(song -> song.getReleaseYear() >= year);
             } else {
-                filtered_songs.removeIf(song -> song.getReleaseYear() <= year);
+                filteredSongs.removeIf(song -> song.getReleaseYear() <= year);
             }
         }
         if (filters.containsKey("artist")) {
             String artist = (String)filters.get("artist");
-            filtered_songs.removeIf(song -> !song.getArtist().equals(artist));
+            filteredSongs.removeIf(song -> !song.getArtist().equals(artist));
         }
-        return filtered_songs;
+        return filteredSongs;
     }
 
     public ArrayList<Podcast> findPodcastsByFilter(Map<String, Object> filters) {
-        ArrayList<Podcast> filtered_podcasts = new ArrayList<>(podcasts);
+        ArrayList<Podcast> filteredPodcasts = new ArrayList<>(podcasts);
         if (filters.containsKey("name")) {
             String name = (String)filters.get("name");
-            filtered_podcasts.removeIf(podcast -> !podcast.getName().startsWith(name));
+            filteredPodcasts.removeIf(podcast -> !podcast.getName().startsWith(name));
         }
         if (filters.containsKey("owner")) {
             String owner = (String)filters.get("owner");
-            filtered_podcasts.removeIf(podcast -> !podcast.getOwner().equals(owner));
+            filteredPodcasts.removeIf(podcast -> !podcast.getOwner().equals(owner));
         }
-        return filtered_podcasts;
+        return filteredPodcasts;
+    }
+
+    public ArrayList<Playlist> findPublicPlaylistsByFilter(Map<String, Object> filters) {
+        ArrayList<Playlist> filteredPlaylists = new ArrayList<>();
+        if (filters.containsKey("owner")) {
+            String owner = (String)filters.get("owner");
+            ArrayList<Playlist> userPlaylist = new ArrayList<>(findUser(owner).getPlaylists());
+            userPlaylist.removeIf(Playlist::isPrivate);
+            if (filters.containsKey("name")) {
+                String name = (String)filters.get("name");
+                userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
+            }
+            filteredPlaylists.addAll(userPlaylist);
+        } else {
+            for (User u : users) {
+                ArrayList<Playlist> userPlaylist = new ArrayList<>(u.getPlaylists());
+                userPlaylist.removeIf(Playlist::isPrivate);
+                if (filters.containsKey("name")) {
+                    String name = (String)filters.get("name");
+                    userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
+                }
+                filteredPlaylists.addAll(userPlaylist);
+            }
+        }
+        return filteredPlaylists;
     }
 }

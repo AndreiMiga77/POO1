@@ -2,12 +2,10 @@ package command;
 
 import command.output.CommandOutput;
 import command.output.SearchCommandOutput;
-import library.Library;
-import library.Podcast;
-import library.Song;
-import library.User;
+import library.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SearchCommand extends Command {
@@ -52,6 +50,16 @@ public class SearchCommand extends Command {
             for (Podcast podcast : podcasts.subList(0, search_size))
                 names.add(podcast.getName());
             user.setLastSearch(podcasts.subList(0, search_size));
+            message = "Search returned " + search_size + " results";
+        } else if (type.equals("playlist")) {
+            ArrayList<Playlist> playlists = library.findPublicPlaylistsByFilter(filters);
+            ArrayList<Playlist> privatePlaylists = new ArrayList<>(user.getPlaylists());
+            privatePlaylists.removeIf(playlist -> !playlist.isPrivate());
+            playlists.addAll(privatePlaylists);
+            int search_size = Math.min(playlists.size(), 5);
+            for (Playlist playlist : playlists.subList(0, search_size))
+                names.add(playlist.getName());
+            user.setLastSearch(playlists.subList(0, search_size));
             message = "Search returned " + search_size + " results";
         }
         return new SearchCommandOutput(getUsername(), getTimestamp(), message, names);

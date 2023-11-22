@@ -5,6 +5,8 @@ public interface Playable {
     int getDuration();
     int getNumTracks();
     int getTrackDuration(int i);
+    boolean allowsLike();
+    boolean allowsFollow();
     boolean allowsShuffling();
     boolean remembersTimestamp();
 }

@@ -56,6 +56,16 @@ public class Podcast implements Playable {
     }
 
     @Override
+    public boolean allowsLike() {
+        return false;
+    }
+
+    @Override
+    public boolean allowsFollow() {
+        return false;
+    }
+
+    @Override
     public boolean allowsShuffling() {
         return false;
     }
