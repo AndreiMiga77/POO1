@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import fileio.input.SongInput;
 
-public class Song {
+public class Song implements Playable {
     private final String name;
     private final int duration;
     private final String album;
@@ -27,6 +27,7 @@ public class Song {
         artist = input.getArtist();
     }
 
+    @Override
     public String getName() {
         return name;
     }

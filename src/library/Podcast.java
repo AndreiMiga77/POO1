@@ -7,7 +7,7 @@ import java.util.Collections;
 import fileio.input.PodcastInput;
 import fileio.input.EpisodeInput;
 
-public class Podcast {
+public class Podcast implements Playable {
     private String name;
     private String owner;
 
@@ -23,6 +23,7 @@ public class Podcast {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }

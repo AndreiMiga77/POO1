@@ -1,9 +1,22 @@
 package command;
 
+import java.util.List;
+
+import command.output.CommandOutput;
+import command.output.SelectCommandOutput;
+import library.Library;
+import library.Playable;
+import library.User;
+
 public class SelectCommand extends Command {
     private Integer itemNumber;
 
     public SelectCommand() {
+    }
+
+    @Override
+    public String getCommand() {
+        return "select";
     }
 
     public Integer getItemNumber() {
@@ -16,6 +29,18 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandOutput execute() {
-        return null;
+        Library library = Library.getInstance();
+        User user = library.findUser(getUsername());
+        List<Playable> lastSearch = user.getLastSearch();
+        String message;
+        if (lastSearch == null)
+            message = "Please conduct a search before making a selection.";
+        else if (getItemNumber() > lastSearch.size())
+            message = "The selected ID is too high.";
+        else {
+            message = "Successfully selected " +  lastSearch.get(getItemNumber() - 1).getName() + ".";
+            user.setSelectedSource(getItemNumber() - 1);
+        }
+        return new SelectCommandOutput(getUsername(), getTimestamp(), message);
     }
 }

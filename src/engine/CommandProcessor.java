@@ -1,7 +1,7 @@
 package engine;
 
 import command.Command;
-import command.CommandOutput;
+import command.output.CommandOutput;
 
 public class CommandProcessor {
     private static CommandProcessor instance;
