@@ -20,10 +20,10 @@ public class NextCommand extends Command {
             String name;
             if (player.isLoaded()) {
                 name = player.getCurrentTrack().getName();
+                message = "Skipped to next track successfully. The current track is " + name + ".";
             } else {
-                name = "Please load a source before skipping to the next track.";
+                message = "Please load a source before skipping to the next track.";
             }
-            message = "Skipped to next track successfully. The current track is " + name + ".";
         }
         return new NextCommandOutput(getUsername(), getTimestamp(), message);
     }

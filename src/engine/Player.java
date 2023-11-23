@@ -137,10 +137,12 @@ public class Player {
     }
 
     public void skip() {
+        paused = false;
         tickTime(getTimeRemaining());
     }
 
     public void rewind() {
+        paused = false;
         if (currentTime == 0 && currentTrackIndex > 0) {
             currentTrackIndex--;
         }

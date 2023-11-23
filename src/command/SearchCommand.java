@@ -53,10 +53,7 @@ public class SearchCommand extends Command {
             user.setLastSearch(podcasts.subList(0, search_size));
             message = "Search returned " + search_size + " results";
         } else if (type.equals("playlist")) {
-            ArrayList<Playlist> playlists = library.findPublicPlaylistsByFilter(filters);
-            ArrayList<Playlist> privatePlaylists = new ArrayList<>(user.getPlaylists());
-            privatePlaylists.removeIf(playlist -> !playlist.isPrivate());
-            playlists.addAll(privatePlaylists);
+            ArrayList<Playlist> playlists = library.findPlaylistsByFilter(filters, user);
             int search_size = Math.min(playlists.size(), 5);
             for (Playlist playlist : playlists.subList(0, search_size))
                 names.add(playlist.getName());

@@ -120,28 +120,43 @@ public class Library {
         return filteredPodcasts;
     }
 
-    public ArrayList<Playlist> findPublicPlaylistsByFilter(Map<String, Object> filters) {
+    public ArrayList<Playlist> findPlaylistsByFilter(Map<String, Object> filters, User user) {
         ArrayList<Playlist> filteredPlaylists = new ArrayList<>();
-        if (filters.containsKey("owner")) {
-            String owner = (String)filters.get("owner");
-            ArrayList<Playlist> userPlaylist = new ArrayList<>(findUser(owner).getPlaylists());
-            userPlaylist.removeIf(Playlist::isPrivate);
+
+        for (User u : users) {
+            if (filters.containsKey("owner") && !filters.get("owner").equals(u.getUsername()))
+                continue;
+            ArrayList<Playlist> userPlaylists = new ArrayList<>(u.getPlaylists());
+            if (!u.equals(user)) {
+                userPlaylists.removeIf(Playlist::isPrivate);
+            }
             if (filters.containsKey("name")) {
                 String name = (String)filters.get("name");
-                userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
+                userPlaylists.removeIf(playlist -> !playlist.getName().startsWith(name));
             }
-            filteredPlaylists.addAll(userPlaylist);
-        } else {
-            for (User u : users) {
-                ArrayList<Playlist> userPlaylist = new ArrayList<>(u.getPlaylists());
-                userPlaylist.removeIf(Playlist::isPrivate);
-                if (filters.containsKey("name")) {
-                    String name = (String)filters.get("name");
-                    userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
-                }
-                filteredPlaylists.addAll(userPlaylist);
-            }
+            filteredPlaylists.addAll(userPlaylists);
         }
+//
+//        if (filters.containsKey("owner")) {
+//            String owner = (String)filters.get("owner");
+//            ArrayList<Playlist> userPlaylist = new ArrayList<>(findUser(owner).getPlaylists());
+//            userPlaylist.removeIf(Playlist::isPrivate);
+//            if (filters.containsKey("name")) {
+//                String name = (String)filters.get("name");
+//                userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
+//            }
+//            filteredPlaylists.addAll(userPlaylist);
+//        } else {
+//            for (User u : users) {
+//                ArrayList<Playlist> userPlaylist = new ArrayList<>(u.getPlaylists());
+//                userPlaylist.removeIf(Playlist::isPrivate);
+//                if (filters.containsKey("name")) {
+//                    String name = (String)filters.get("name");
+//                    userPlaylist.removeIf(playlist -> !playlist.getName().startsWith(name));
+//                }
+//                filteredPlaylists.addAll(userPlaylist);
+//            }
+//        }
         return filteredPlaylists;
     }
 }
