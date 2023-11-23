@@ -11,8 +11,7 @@ public class Library {
     private static Library instance;
 
     public static void createLibrary(LibraryInput libInput) {
-        if (instance == null)
-            instance = new Library(libInput);
+        instance = new Library(libInput);
     }
 
     public static Library getInstance() {
@@ -37,7 +36,6 @@ public class Library {
         for (PodcastInput podcast : libInput.getPodcasts()) {
             podcasts.add(new Podcast(podcast));
         }
-        instance = this;
     }
 
     public List<User> getUsers() {

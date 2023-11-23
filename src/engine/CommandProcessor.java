@@ -6,11 +6,11 @@ import library.Library;
 
 public class CommandProcessor {
     private static CommandProcessor instance;
+
+    public static void createCommandProcessor() {
+        instance = new CommandProcessor();
+    }
     public static CommandProcessor getInstance() {
-        // This implementation is not thread-safe
-        // But can easily be made so if needed
-        if (instance == null)
-            instance = new CommandProcessor();
         return instance;
     }
 

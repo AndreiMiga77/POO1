@@ -80,6 +80,7 @@ public final class Main {
         Library.createLibrary(library);
         Command[] commands = objectMapper.readValue(Paths.get("input", filePathInput).toFile(), Command[].class);
 
+        CommandProcessor.createCommandProcessor();
         CommandProcessor processor = CommandProcessor.getInstance();
 
         for (Command command : commands) {
