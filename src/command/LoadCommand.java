@@ -6,6 +6,7 @@ import library.Library;
 import library.Playable;
 import library.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoadCommand extends Command {
@@ -19,6 +20,7 @@ public class LoadCommand extends Command {
             message = "Please select a source before attempting to load.";
         else {
             user.getPlayer().load(lastSearch.get(user.getSelectedSource()));
+            user.setSelectedSource(-1);
             message = "Playback loaded successfully.";
         }
         return new LoadCommandOutput(getUsername(), getTimestamp(), message);

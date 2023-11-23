@@ -94,4 +94,9 @@ public class Playlist implements Playable {
     public boolean remembersTimestamp() {
         return false;
     }
+
+    @Override
+    public boolean isPlaylistRepeatable() {
+        return true;
+    }
 }

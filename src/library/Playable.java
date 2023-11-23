@@ -9,4 +9,5 @@ public interface Playable {
     boolean allowsFollow();
     boolean allowsShuffling();
     boolean remembersTimestamp();
+    boolean isPlaylistRepeatable();
 }

@@ -76,7 +76,7 @@ public class Library {
         }
         if (filters.containsKey("lyrics")) {
             String lyric = (String)filters.get("lyrics");
-            filteredSongs.removeIf(song -> !song.getLyrics().contains(lyric));
+            filteredSongs.removeIf(song -> !song.getLyrics().toLowerCase().contains(lyric.toLowerCase()));
         }
         if (filters.containsKey("genre")) {
             String genre = (String)filters.get("genre");

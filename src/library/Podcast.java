@@ -71,6 +71,11 @@ public class Podcast implements Playable {
     }
 
     @Override
+    public boolean isPlaylistRepeatable() {
+        return false;
+    }
+
+    @Override
     public Playable getTrack(int i) {
         return episodes.get(i);
     }

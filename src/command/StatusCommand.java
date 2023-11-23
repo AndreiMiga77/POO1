@@ -21,7 +21,25 @@ public class StatusCommand extends Command {
         else
             map.put("name", player.getCurrentTrack().getName());
         map.put("remainedTime", player.getTimeRemaining());
-        map.put("repeat", "No Repeat");
+        switch (player.getRepeatState()) {
+            case NO_REPEAT:
+                map.put("repeat", "No Repeat");
+                break;
+            case REPEAT_ALL:
+                if (player.getCurrent().isPlaylistRepeatable()) {
+                    map.put("repeat", "Repeat All");
+                } else {
+                    map.put("repeat", "Repeat Infinite");
+                }
+                break;
+            case REPEAT_CURRENT:
+                map.put("repeat", "Repeat Current Song");
+                break;
+            case REPEAT_ONCE:
+                map.put("repeat", "Repeat Once");
+                break;
+        }
+
         map.put("shuffle", player.isShuffled());
         map.put("paused", player.isPaused());
 

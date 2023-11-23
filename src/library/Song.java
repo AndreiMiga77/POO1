@@ -100,6 +100,11 @@ public class Song implements Playable {
     }
 
     @Override
+    public boolean isPlaylistRepeatable() {
+        return false;
+    }
+
+    @Override
     public Playable getTrack(int i) {
         if (i != 0)
             return null;
