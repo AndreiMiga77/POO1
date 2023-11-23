@@ -99,4 +99,9 @@ public class Playlist implements Playable {
     public boolean isPlaylistRepeatable() {
         return true;
     }
+
+    @Override
+    public boolean isSeekable() {
+        return false;
+    }
 }

@@ -76,6 +76,11 @@ public class Podcast implements Playable {
     }
 
     @Override
+    public boolean isSeekable() {
+        return true;
+    }
+
+    @Override
     public Playable getTrack(int i) {
         return episodes.get(i);
     }

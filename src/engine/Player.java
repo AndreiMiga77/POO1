@@ -136,6 +136,33 @@ public class Player {
         paused = true;
     }
 
+    public void skip() {
+        tickTime(getTimeRemaining());
+    }
+
+    public void rewind() {
+        if (currentTime == 0 && currentTrackIndex > 0) {
+            currentTrackIndex--;
+        }
+        currentTime = 0;
+    }
+
+    public void seekForward(int time) {
+        if (getTimeRemaining() < time) {
+            skip();
+        } else {
+            currentTime += time;
+        }
+    }
+
+    public void seekBackward(int time) {
+        if (currentTime <= time) {
+            currentTime = 0;
+        } else {
+            currentTime -= time;
+        }
+    }
+
     public boolean isShuffled() {
         return shuffled;
     }

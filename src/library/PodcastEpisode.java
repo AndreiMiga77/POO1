@@ -63,4 +63,9 @@ public class PodcastEpisode implements Playable {
     public boolean isPlaylistRepeatable() {
         return false;
     }
+
+    @Override
+    public boolean isSeekable() {
+        return false;
+    }
 }
