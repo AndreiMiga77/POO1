@@ -17,7 +17,7 @@ import command.SelectCommand;
         @Type(value = LoadCommandOutput.class, name = "load"),
         @Type(value = PlayPauseCommandOutput.class, name = "playPause"),
         @Type(value = RepeatCommandOutput.class, name = "repeat"),
-//        @Type(value = ShuffleCommandOutput.class, name = "shuffle"),
+        @Type(value = ShuffleCommandOutput.class, name = "shuffle"),
 //        @Type(value = ForwardCommandOutput.class, name = "forward"),
 //        @Type(value = BackwardCommandOutput.class, name = "backward"),
         @Type(value = LikeCommandOutput.class, name = "like"),

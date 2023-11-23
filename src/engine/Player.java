@@ -3,7 +3,10 @@ package engine;
 import library.Playable;
 import library.Playlist;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Player {
     public enum RepeatState {
@@ -14,12 +17,13 @@ public class Player {
     }
 
     private Playable current;
-    private int currentTrackId;
+    private int currentTrackIndex;
     private int currentTime;
     private boolean paused;
     private boolean shuffled;
     private HashMap<Playable, Integer> timestampsRemembered;
     private RepeatState repeatState;
+    private ArrayList<Integer> trackIndexList;
 
     public Player() {
         paused = true;
@@ -35,6 +39,7 @@ public class Player {
         if (current.getNumTracks() <= 0)
             return;
         int newTime = currentTime + dif;
+        int currentTrackId = trackIndexList.get(currentTrackIndex);
         if (currentTime + dif < current.getTrack(currentTrackId).getDuration()) {
             currentTime += dif;
         } else {
@@ -44,10 +49,11 @@ public class Player {
                 tickTime(dif);
                 return;
             }
-            for (int i = currentTrackId + 1; i < current.getNumTracks(); i++) {
-                if (dif < current.getTrack(i).getDuration()) {
+            for (int i = currentTrackIndex + 1; i < current.getNumTracks(); i++) {
+                int trackId = trackIndexList.get(i);
+                if (dif < current.getTrack(trackId).getDuration()) {
                     currentTime = dif;
-                    currentTrackId = i;
+                    currentTrackIndex = i;
                     return;
                 }
                 dif -= current.getTrack(i).getDuration();
@@ -56,52 +62,17 @@ public class Player {
                 unload();
             } else if (repeatState == RepeatState.REPEAT_ALL) {
                 currentTime = 0;
-                currentTrackId = 0;
+                currentTrackIndex = 0;
                 if (dif > 0)
                     tickTime(dif);
             } else if (repeatState == RepeatState.REPEAT_ONCE) {
                 currentTime = 0;
-                currentTrackId = 0;
+                currentTrackIndex = 0;
                 repeatState = RepeatState.NO_REPEAT;
                 if (dif > 0)
                     tickTime(dif);
             }
         }
-//        if (newTime >= current.getTrack(currentTrackId).getDuration()) {
-//            if (current.getNumTracks() == currentTrackId + 1) {
-//                switch (repeatState) {
-//                    case NO_REPEAT -> unload();
-//                    case REPEAT_ALL -> {
-//                        dif -= getTimeRemaining();
-//                        dif %= current.getDuration();
-//                        currentTime = dif;
-//                        currentTrackId = 0;
-//                        for (int i = 0; i < current.getNumTracks(); i++) {
-//
-//                        }
-//                    }
-//                }
-//            } else {
-//                dif -= getTimeRemaining();
-//                currentTrackId++;
-//                currentTime = 0;
-//                if (current.getNumTracks() == currentTrackId) {
-//                    unload();
-//                    return;
-//                }
-//                while (dif >= current.getTrack(currentTrackId).getDuration()) {
-//                    dif -= current.getTrack(currentTrackId).getDuration();
-//                    currentTrackId++;
-//                    if (current.getNumTracks() == currentTrackId) {
-//                        unload();
-//                        return;
-//                    }
-//                }
-//                currentTime = dif;
-//            }
-//        } else {
-//            currentTime = newTime;
-//        }
     }
 
     public boolean isLoaded() {
@@ -111,7 +82,13 @@ public class Player {
     public void load(Playable track) {
         if (isLoaded())
             unload();
+        shuffled = false;
+        paused = false;
         current = track;
+        trackIndexList = new ArrayList<>(track.getNumTracks());
+        for (int i = 0; i < track.getNumTracks(); i++) {
+            trackIndexList.add(i);
+        }
         if (track.remembersTimestamp()) {
             if (timestampsRemembered.containsKey(track)) {
                 int rememberedTime = timestampsRemembered.get(track);
@@ -119,8 +96,7 @@ public class Player {
                 for (int i = 0; i < track.getNumTracks(); i++) {
                     if (rememberedTime < totalTime + track.getTrack(i).getDuration()) {
                         currentTime = rememberedTime - totalTime;
-                        currentTrackId = i;
-                        paused = false;
+                        currentTrackIndex = i;
                         return;
                     }
                     totalTime += track.getTrack(i).getDuration();
@@ -128,13 +104,13 @@ public class Player {
             }
         }
         currentTime = 0;
-        currentTrackId = 0;
-        paused = false;
+        currentTrackIndex = 0;
     }
 
     public void unload() {
         if (current == null)
             return;
+        int currentTrackId = trackIndexList.get(currentTrackIndex);
         if (current.remembersTimestamp()) {
             int prevTime = 0;
             for (int i = 0; i < currentTrackId; i++)
@@ -143,6 +119,7 @@ public class Player {
         }
         current = null;
         paused = true;
+        shuffled = false;
         currentTime = 0;
         repeatState = RepeatState.NO_REPEAT;
     }
@@ -163,14 +140,33 @@ public class Player {
         return shuffled;
     }
 
+    public void shuffleSource(long seed) {
+        Collections.shuffle(trackIndexList, new Random(seed));
+        for (int i = 0; i < trackIndexList.size(); i++) {
+            if (trackIndexList.get(i) == currentTrackIndex) {
+                currentTrackIndex = i;
+                break;
+            }
+        }
+        shuffled = true;
+    }
+
+    public void unshuffleSource() {
+        currentTrackIndex = trackIndexList.get(currentTrackIndex);
+        for (int i = 0; i < trackIndexList.size(); i++) {
+            trackIndexList.set(i, i);
+        }
+        shuffled = false;
+    }
+
     public Playable getCurrentTrack() {
         if (current == null)
             return null;
         if (current.getNumTracks() <= 0)
             return null;
-        if (currentTrackId < 0)
+        if (currentTrackIndex < 0)
             return null;
-        return current.getTrack(currentTrackId);
+        return current.getTrack(trackIndexList.get(currentTrackIndex));
     }
 
     public Playable getCurrent() {
@@ -182,6 +178,9 @@ public class Player {
             return 0;
         if (current.getNumTracks() <= 0)
             return 0;
+        if (currentTrackIndex < 0)
+            return 0;
+        int currentTrackId = trackIndexList.get(currentTrackIndex);
         return current.getTrack(currentTrackId).getDuration() - currentTime;
     }
 
