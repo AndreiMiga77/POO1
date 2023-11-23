@@ -44,11 +44,14 @@ public class User {
     }
 
     public List<Playable> getLastSearch() {
+        if (lastSearch == null) {
+            return null;
+        }
         return Collections.unmodifiableList(lastSearch);
     }
 
     public void setLastSearch(List<? extends Playable> lastSearch) {
-        this.lastSearch = new ArrayList<>(lastSearch);
+        this.lastSearch = lastSearch;
     }
 
     public int getSelectedSource() {
@@ -86,15 +89,37 @@ public class User {
     }
 
     public void likeSong(Song song) {
-        if (!likedSongs.contains(song))
+        if (!likedSongs.contains(song)) {
             likedSongs.add(song);
+            song.addLike();
+        }
     }
 
     public void unlikeSong(Song song) {
-        likedSongs.remove(song);
+        if (likedSongs.remove(song)) {
+            song.removeLike();
+        }
+
     }
 
     public List<Song> getLikedSongs() {
         return Collections.unmodifiableList(likedSongs);
+    }
+
+    public boolean hasFollowedPlaylist(Playlist playlist) {
+        return followedPlaylists.contains(playlist);
+    }
+
+    public  void followPlaylist(Playlist playlist) {
+        if (!followedPlaylists.contains(playlist)) {
+            followedPlaylists.add(playlist);
+            playlist.addFollower();
+        }
+    }
+
+    public void unfollowPlaylist(Playlist playlist) {
+        if (followedPlaylists.remove(playlist)) {
+            playlist.removeFollower();
+        }
     }
 }

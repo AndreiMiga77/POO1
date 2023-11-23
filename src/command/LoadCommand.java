@@ -16,11 +16,12 @@ public class LoadCommand extends Command {
         User user = library.findUser(getUsername());
         List<Playable> lastSearch = user.getLastSearch();
         String message;
-        if (lastSearch == null || user.getSelectedSource() < 0)
+        if (lastSearch == null || user.getSelectedSource() < 0) {
             message = "Please select a source before attempting to load.";
-        else {
+        } else {
             user.getPlayer().load(lastSearch.get(user.getSelectedSource()));
             user.setSelectedSource(-1);
+            user.setLastSearch(null);
             message = "Playback loaded successfully.";
         }
         return new LoadCommandOutput(getUsername(), getTimestamp(), message);

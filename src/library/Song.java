@@ -62,15 +62,15 @@ public class Song implements Playable {
         return artist;
     }
 
-    public int getFollowers() {
+    public int getLikes() {
         return likes;
     }
 
-    public void addFollower() {
+    public void addLike() {
         likes++;
     }
 
-    public void removeFollower() {
+    public void removeLike() {
         likes--;
     }
 
