@@ -34,8 +34,12 @@ public class SearchCommandOutput extends CommandOutput {
         this.timestamp = timestamp;
     }
 
-    public List<String> getResults() {
-        return Collections.unmodifiableList(results);
+    public ArrayList<String> getResults() {
+        return results;
+    }
+
+    public void setResults(ArrayList<String> res) {
+        results = res;
     }
 
     public String getMessage() {

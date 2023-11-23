@@ -28,8 +28,8 @@ import command.SelectCommand;
         @Type(value = CreatePlaylistCommandOutput.class, name = "createPlaylist"),
 //        @Type(value = SwitchVisibilityCommandOutput.class, name = "switchVisibility"),
 //        @Type(value = FollowCommandOutput.class, name = "follow"),
-//        @Type(value = ShowPlaylistsCommandOutput.class, name = "showPlaylists"),
-//        @Type(value = ShowPreferredSongsCommandOutput.class, name = "showPreferredSongs"),
+        @Type(value = ShowPlaylistsCommandOutput.class, name = "showPlaylists"),
+        @Type(value = ShowPreferredSongsCommandOutput.class, name = "showPreferredSongs"),
 //        @Type(value = GetTop5SongsCommandOutput.class, name = "getTop5Songs"),
 //        @Type(value = GetTop5PlaylistsCommandOutput.class, name = "getTop5Playlists"),
 })

@@ -93,4 +93,8 @@ public class User {
     public void unlikeSong(Song song) {
         likedSongs.remove(song);
     }
+
+    public List<Song> getLikedSongs() {
+        return Collections.unmodifiableList(likedSongs);
+    }
 }

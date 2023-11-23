@@ -72,6 +72,8 @@ public class Player {
     public int getTimeRemaining() {
         if (current == null)
             return 0;
+        if (current.getNumTracks() <= 0)
+            return 0;
         return current.getTrackDuration(currentTrackId) - currentTime;
     }
 }
