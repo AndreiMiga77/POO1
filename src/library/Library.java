@@ -50,6 +50,15 @@ public class Library {
         return Collections.unmodifiableList(podcasts);
     }
 
+    public ArrayList<Playlist> getPublicPlaylists() {
+        ArrayList<Playlist> playlists = new ArrayList<>();
+        for (User u : users) {
+            playlists.addAll(u.getPlaylists());
+        }
+        playlists.removeIf(Playlist::isPrivate);
+        return playlists;
+    }
+
     public void tickTime(int dif) {
         for (User u : users) {
             u.getPlayer().tickTime(dif);

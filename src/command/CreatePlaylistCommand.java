@@ -21,7 +21,7 @@ public class CreatePlaylistCommand extends Command {
         if (user.getPlaylistByName(playlistName) != null)
             message = "A playlist with the same name already exists.";
         else {
-            user.createPlaylist(playlistName);
+            user.createPlaylist(playlistName, getTimestamp());
             message = "Playlist created successfully.";
         }
         return new CreatePlaylistCommandOutput(getUsername(), getTimestamp(), message);

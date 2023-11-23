@@ -66,8 +66,8 @@ public class User {
         return player;
     }
 
-    public void createPlaylist(String name) {
-        ownedPlaylists.add(new Playlist(name));
+    public void createPlaylist(String name, int timestamp) {
+        ownedPlaylists.add(new Playlist(name, timestamp));
     }
 
     public Playlist getPlaylist(int id) {

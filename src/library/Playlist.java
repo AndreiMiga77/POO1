@@ -6,12 +6,14 @@ import java.util.List;
 
 public class Playlist implements Playable {
     private String name;
+    private int creationTime;
     private ArrayList<Song> songs;
     private boolean isPrivate;
     private int followers;
 
-    public Playlist(String name) {
+    public Playlist(String name, int time) {
         this.name = name;
+        creationTime = time;
         songs = new ArrayList<>();
     }
 
@@ -22,6 +24,10 @@ public class Playlist implements Playable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCreationTime() {
+        return creationTime;
     }
 
     public List<Song> getSongs() {

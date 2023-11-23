@@ -30,8 +30,8 @@ import command.SelectCommand;
         @Type(value = FollowCommandOutput.class, name = "follow"),
         @Type(value = ShowPlaylistsCommandOutput.class, name = "showPlaylists"),
         @Type(value = ShowPreferredSongsCommandOutput.class, name = "showPreferredSongs"),
-//        @Type(value = GetTop5SongsCommandOutput.class, name = "getTop5Songs"),
-//        @Type(value = GetTop5PlaylistsCommandOutput.class, name = "getTop5Playlists"),
+        @Type(value = GetTop5SongsCommandOutput.class, name = "getTop5Songs"),
+        @Type(value = GetTop5PlaylistsCommandOutput.class, name = "getTop5Playlists"),
 })
 public abstract class CommandOutput {
 }
