@@ -21,7 +21,7 @@ public class Player {
         if (current.getNumTracks() <= 0)
             return;
         int newTime = currentTime + dif;
-        if (newTime >= current.getTrackDuration(currentTrackId)) {
+        if (newTime >= current.getTrack(currentTrackId).getDuration()) {
             if (current.getNumTracks() == currentTrackId + 1)
                 unload();
             else {
@@ -66,6 +66,12 @@ public class Player {
     }
 
     public Playable getCurrentTrack() {
+        if (currentTrackId < 0)
+            return null;
+        return current.getTrack(currentTrackId);
+    }
+
+    public Playable getCurrent() {
         return current;
     }
 
@@ -74,6 +80,6 @@ public class Player {
             return 0;
         if (current.getNumTracks() <= 0)
             return 0;
-        return current.getTrackDuration(currentTrackId) - currentTime;
+        return current.getTrack(currentTrackId).getDuration() - currentTime;
     }
 }

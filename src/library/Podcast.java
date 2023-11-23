@@ -51,11 +51,6 @@ public class Podcast implements Playable {
     }
 
     @Override
-    public int getTrackDuration(int i) {
-        return episodes.get(i).getDuration();
-    }
-
-    @Override
     public boolean allowsLike() {
         return false;
     }
@@ -73,5 +68,10 @@ public class Podcast implements Playable {
     @Override
     public boolean remembersTimestamp() {
         return true;
+    }
+
+    @Override
+    public Playable getTrack(int i) {
+        return episodes.get(i);
     }
 }

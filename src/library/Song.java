@@ -80,11 +80,6 @@ public class Song implements Playable {
     }
 
     @Override
-    public int getTrackDuration(int i) {
-        return getDuration();
-    }
-
-    @Override
     public boolean allowsLike() {
         return true;
     }
@@ -102,5 +97,12 @@ public class Song implements Playable {
     @Override
     public boolean remembersTimestamp() {
         return false;
+    }
+
+    @Override
+    public Playable getTrack(int i) {
+        if (i != 0)
+            return null;
+        return this;
     }
 }

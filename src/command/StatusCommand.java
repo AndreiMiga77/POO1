@@ -16,10 +16,10 @@ public class StatusCommand extends Command {
         Player player = user.getPlayer();
 
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        if (player.getCurrentTrack() == null)
+        if (player.getCurrent() == null)
             map.put("name", "");
         else
-            map.put("name", player.getCurrentTrack().getName());
+            map.put("name", player.getCurrent().getName());
         map.put("remainedTime", player.getTimeRemaining());
         map.put("repeat", "No Repeat");
         map.put("shuffle", player.isShuffled());

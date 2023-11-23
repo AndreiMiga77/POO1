@@ -71,8 +71,8 @@ public class Playlist implements Playable {
     }
 
     @Override
-    public int getTrackDuration(int i) {
-        return songs.get(i).getDuration();
+    public Playable getTrack(int i) {
+        return songs.get(i);
     }
 
     @Override

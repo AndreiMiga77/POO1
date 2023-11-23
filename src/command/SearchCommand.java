@@ -35,6 +35,7 @@ public class SearchCommand extends Command {
         ArrayList<String> names = new ArrayList<>(5);
         String message = null;
 
+        user.getPlayer().unload();
         user.setSelectedSource(-1);
 
         if (type.equals("song")) {
