@@ -2,12 +2,12 @@ package library;
 
 import fileio.input.EpisodeInput;
 
-public class PodcastEpisode implements Playable {
+public final class PodcastEpisode implements Playable {
     private String name;
     private int duration;
     private String description;
 
-    public PodcastEpisode(EpisodeInput input) {
+    public PodcastEpisode(final EpisodeInput input) {
         name = input.getName();
         duration = input.getDuration();
         description = input.getDescription();
@@ -33,9 +33,10 @@ public class PodcastEpisode implements Playable {
     }
 
     @Override
-    public Playable getTrack(int i) {
-        if (i != 0)
+    public Playable getTrack(final int i) {
+        if (i != 0) {
             return null;
+        }
         return this;
     }
 

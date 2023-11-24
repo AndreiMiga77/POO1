@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Playlist implements Playable {
+public final class Playlist implements Playable {
     private String name;
     private int creationTime;
     private ArrayList<Song> songs;
     private boolean isPrivate;
     private int followers;
 
-    public Playlist(String name, int time) {
+    public Playlist(final String name, final int time) {
         this.name = name;
         creationTime = time;
         songs = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Playlist implements Playable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -34,11 +34,11 @@ public class Playlist implements Playable {
         return Collections.unmodifiableList(songs);
     }
 
-    public void addSong(Song song) {
+    public void addSong(final Song song) {
         songs.add(song);
     }
 
-    public void removeSong(Song song) {
+    public void removeSong(final Song song) {
         songs.remove(song);
     }
 
@@ -46,8 +46,8 @@ public class Playlist implements Playable {
         return isPrivate;
     }
 
-    public void setVisibility(boolean isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setVisibility(final boolean isHidden) {
+        this.isPrivate = isHidden;
     }
 
     public int getFollowers() {
@@ -77,7 +77,7 @@ public class Playlist implements Playable {
     }
 
     @Override
-    public Playable getTrack(int i) {
+    public Playable getTrack(final int i) {
         return songs.get(i);
     }
 

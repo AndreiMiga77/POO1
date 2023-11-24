@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import fileio.input.SongInput;
 
-public class Song implements Playable {
+public final class Song implements Playable {
     private final String name;
     private final int duration;
     private final String album;
@@ -17,7 +17,7 @@ public class Song implements Playable {
     private final String artist;
     private int likes;
 
-    public Song(SongInput input) {
+    public Song(final SongInput input) {
         name = input.getName();
         duration = input.getDuration();
         album = input.getAlbum();
@@ -110,9 +110,10 @@ public class Song implements Playable {
     }
 
     @Override
-    public Playable getTrack(int i) {
-        if (i != 0)
+    public Playable getTrack(final int i) {
+        if (i != 0) {
             return null;
+        }
         return this;
     }
 }

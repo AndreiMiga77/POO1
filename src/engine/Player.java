@@ -157,7 +157,7 @@ public final class Player {
         currentTime = 0;
     }
 
-    public void seekForward(int time) {
+    public void seekForward(final int time) {
         if (getTimeRemaining() < time) {
             skip();
         } else {
@@ -165,7 +165,7 @@ public final class Player {
         }
     }
 
-    public void seekBackward(int time) {
+    public void seekBackward(final int time) {
         if (currentTime <= time) {
             currentTime = 0;
         } else {
@@ -177,7 +177,7 @@ public final class Player {
         return shuffled;
     }
 
-    public void shuffleSource(long seed) {
+    public void shuffleSource(final long seed) {
         Collections.shuffle(trackIndexList, new Random(seed));
         for (int i = 0; i < trackIndexList.size(); i++) {
             if (trackIndexList.get(i) == currentTrackIndex) {
@@ -197,12 +197,15 @@ public final class Player {
     }
 
     public Playable getCurrentTrack() {
-        if (current == null)
+        if (current == null) {
             return null;
-        if (current.getNumTracks() <= 0)
+        }
+        if (current.getNumTracks() <= 0) {
             return null;
-        if (currentTrackIndex < 0)
+        }
+        if (currentTrackIndex < 0) {
             return null;
+        }
         return current.getTrack(trackIndexList.get(currentTrackIndex));
     }
 
@@ -211,12 +214,15 @@ public final class Player {
     }
 
     public int getTimeRemaining() {
-        if (current == null)
+        if (current == null) {
             return 0;
-        if (current.getNumTracks() <= 0)
+        }
+        if (current.getNumTracks() <= 0) {
             return 0;
-        if (currentTrackIndex < 0)
+        }
+        if (currentTrackIndex < 0) {
             return 0;
+        }
         int currentTrackId = trackIndexList.get(currentTrackIndex);
         return current.getTrack(currentTrackId).getDuration() - currentTime;
     }
@@ -225,7 +231,7 @@ public final class Player {
         return repeatState;
     }
 
-    public void setRepeatState(RepeatState rep) {
-        repeatState = rep;
+    public void setRepeatState(final RepeatState repeatState) {
+        this.repeatState = repeatState;
     }
 }

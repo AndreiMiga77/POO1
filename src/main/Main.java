@@ -78,7 +78,8 @@ public final class Main {
         ArrayNode outputs = objectMapper.createArrayNode();
 
         Library.createLibrary(library);
-        Command[] commands = objectMapper.readValue(Paths.get("input", filePathInput).toFile(), Command[].class);
+        File inputFile = Paths.get("input", filePathInput).toFile();
+        Command[] commands = objectMapper.readValue(inputFile, Command[].class);
 
         CommandProcessor.createCommandProcessor();
         CommandProcessor processor = CommandProcessor.getInstance();

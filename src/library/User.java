@@ -7,8 +7,9 @@ import engine.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class User {
+public final class User {
     private String username;
     private int age;
     private String city;
@@ -20,7 +21,7 @@ public class User {
     private ArrayList<Playlist> ownedPlaylists;
     private ArrayList<Playlist> followedPlaylists;
 
-    public User(UserInput input) {
+    public User(final UserInput input) {
         username = input.getUsername();
         age = input.getAge();
         city = input.getCity();
@@ -50,7 +51,7 @@ public class User {
         return Collections.unmodifiableList(lastSearch);
     }
 
-    public void setLastSearch(List<? extends Playable> lastSearch) {
+    public void setLastSearch(final List<? extends Playable> lastSearch) {
         this.lastSearch = lastSearch;
     }
 
@@ -58,7 +59,7 @@ public class User {
         return selectedSource;
     }
 
-    public void setSelectedSource(int selectedSource) {
+    public void setSelectedSource(final int selectedSource) {
         this.selectedSource = selectedSource;
     }
 
@@ -66,36 +67,38 @@ public class User {
         return player;
     }
 
-    public void createPlaylist(String name, int timestamp) {
+    public void createPlaylist(final String name, final int timestamp) {
         ownedPlaylists.add(new Playlist(name, timestamp));
     }
 
-    public Playlist getPlaylist(int id) {
-        if (id >= ownedPlaylists.size())
+    public Playlist getPlaylist(final int id) {
+        if (id >= ownedPlaylists.size()) {
             return null;
+        }
         return ownedPlaylists.get(id);
     }
 
-    public Playlist getPlaylistByName(String name) {
-        return ownedPlaylists.stream().filter(playlist -> playlist.getName().equals(name)).findAny().orElse(null);
+    public Playlist getPlaylistByName(final String name) {
+        Stream<Playlist> stream = ownedPlaylists.stream();
+        return stream.filter(playlist -> playlist.getName().equals(name)).findAny().orElse(null);
     }
 
     public List<Playlist> getPlaylists() {
         return Collections.unmodifiableList(ownedPlaylists);
     }
 
-    public boolean hasLikedSong(Song song) {
+    public boolean hasLikedSong(final Song song) {
         return likedSongs.contains(song);
     }
 
-    public void likeSong(Song song) {
+    public void likeSong(final Song song) {
         if (!likedSongs.contains(song)) {
             likedSongs.add(song);
             song.addLike();
         }
     }
 
-    public void unlikeSong(Song song) {
+    public void unlikeSong(final Song song) {
         if (likedSongs.remove(song)) {
             song.removeLike();
         }
@@ -106,18 +109,18 @@ public class User {
         return Collections.unmodifiableList(likedSongs);
     }
 
-    public boolean hasFollowedPlaylist(Playlist playlist) {
+    public boolean hasFollowedPlaylist(final Playlist playlist) {
         return followedPlaylists.contains(playlist);
     }
 
-    public  void followPlaylist(Playlist playlist) {
+    public  void followPlaylist(final Playlist playlist) {
         if (!followedPlaylists.contains(playlist)) {
             followedPlaylists.add(playlist);
             playlist.addFollower();
         }
     }
 
-    public void unfollowPlaylist(Playlist playlist) {
+    public void unfollowPlaylist(final Playlist playlist) {
         if (followedPlaylists.remove(playlist)) {
             playlist.removeFollower();
         }

@@ -6,15 +6,14 @@ import java.util.Collections;
 
 import fileio.input.PodcastInput;
 import fileio.input.EpisodeInput;
-import lombok.Builder;
 
-public class Podcast implements Playable {
+public final class Podcast implements Playable {
     private String name;
     private String owner;
 
     private ArrayList<PodcastEpisode> episodes;
 
-    public Podcast(PodcastInput input) {
+    public Podcast(final PodcastInput input) {
         name = input.getName();
         owner = input.getOwner();
 
@@ -40,8 +39,9 @@ public class Podcast implements Playable {
     @Override
     public int getDuration() {
         int duration = 0;
-        for (PodcastEpisode episode : episodes)
+        for (PodcastEpisode episode : episodes) {
             duration += episode.getDuration();
+        }
         return duration;
     }
 
@@ -81,7 +81,7 @@ public class Podcast implements Playable {
     }
 
     @Override
-    public Playable getTrack(int i) {
+    public Playable getTrack(final int i) {
         return episodes.get(i);
     }
 }
