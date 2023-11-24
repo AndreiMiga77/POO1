@@ -2,13 +2,17 @@ package command;
 
 import command.output.CommandOutput;
 import command.output.SearchCommandOutput;
-import library.*;
+import library.Library;
+import library.User;
+import library.Song;
+import library.Podcast;
+import library.Playlist;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-public class SearchCommand extends Command {
+public final class SearchCommand extends Command {
+    public static final int NUM_MATCHES = 5;
     private String type;
     private Map<String, Object> filters;
 
@@ -16,7 +20,7 @@ public class SearchCommand extends Command {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -24,7 +28,7 @@ public class SearchCommand extends Command {
         return filters;
     }
 
-    public void setFilters(Map<String, Object> filters) {
+    public void setFilters(final Map<String, Object> filters) {
         this.filters = filters;
     }
 
@@ -32,7 +36,7 @@ public class SearchCommand extends Command {
     public CommandOutput execute() {
         Library library = Library.getInstance();
         User user = library.findUser(getUsername());
-        ArrayList<String> names = new ArrayList<>(5);
+        ArrayList<String> names = new ArrayList<>(NUM_MATCHES);
         String message = null;
 
         user.getPlayer().unload();
@@ -40,25 +44,28 @@ public class SearchCommand extends Command {
 
         if (type.equals("song")) {
             ArrayList<Song> songs = library.findSongsByFilter(filters);
-            int search_size = Math.min(songs.size(), 5);
-            for (Song song : songs.subList(0, search_size))
+            int searchSize = Math.min(songs.size(), NUM_MATCHES);
+            for (Song song : songs.subList(0, searchSize)) {
                 names.add(song.getName());
-            user.setLastSearch(songs.subList(0, search_size));
-            message = "Search returned " + search_size + " results";
+            }
+            user.setLastSearch(songs.subList(0, searchSize));
+            message = "Search returned " + searchSize + " results";
         } else if (type.equals("podcast")) {
             ArrayList<Podcast> podcasts = library.findPodcastsByFilter(filters);
-            int search_size = Math.min(podcasts.size(), 5);
-            for (Podcast podcast : podcasts.subList(0, search_size))
+            int searchSize = Math.min(podcasts.size(), NUM_MATCHES);
+            for (Podcast podcast : podcasts.subList(0, searchSize)) {
                 names.add(podcast.getName());
-            user.setLastSearch(podcasts.subList(0, search_size));
-            message = "Search returned " + search_size + " results";
+            }
+            user.setLastSearch(podcasts.subList(0, searchSize));
+            message = "Search returned " + searchSize + " results";
         } else if (type.equals("playlist")) {
             ArrayList<Playlist> playlists = library.findPlaylistsByFilter(filters, user);
-            int search_size = Math.min(playlists.size(), 5);
-            for (Playlist playlist : playlists.subList(0, search_size))
+            int searchSize = Math.min(playlists.size(), NUM_MATCHES);
+            for (Playlist playlist : playlists.subList(0, searchSize)) {
                 names.add(playlist.getName());
-            user.setLastSearch(playlists.subList(0, search_size));
-            message = "Search returned " + search_size + " results";
+            }
+            user.setLastSearch(playlists.subList(0, searchSize));
+            message = "Search returned " + searchSize + " results";
         }
         return new SearchCommandOutput(getUsername(), getTimestamp(), message, names);
     }

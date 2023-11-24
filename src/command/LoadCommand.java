@@ -6,10 +6,9 @@ import library.Library;
 import library.Playable;
 import library.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LoadCommand extends Command {
+public final class LoadCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();

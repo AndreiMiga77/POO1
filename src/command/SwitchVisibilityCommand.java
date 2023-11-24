@@ -8,7 +8,7 @@ import library.User;
 
 import java.util.List;
 
-public class SwitchVisibilityCommand extends Command {
+public final class SwitchVisibilityCommand extends Command {
     private Integer playlistId;
 
     public Integer getPlaylistId() {

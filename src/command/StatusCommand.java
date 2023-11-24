@@ -8,7 +8,7 @@ import library.User;
 
 import java.util.LinkedHashMap;
 
-public class StatusCommand extends Command {
+public final class StatusCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
@@ -16,10 +16,11 @@ public class StatusCommand extends Command {
         Player player = user.getPlayer();
 
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        if (player.getCurrentTrack() == null)
+        if (player.getCurrentTrack() == null) {
             map.put("name", "");
-        else
+        } else {
             map.put("name", player.getCurrentTrack().getName());
+        }
         map.put("remainedTime", player.getTimeRemaining());
         switch (player.getRepeatState()) {
             case NO_REPEAT:
@@ -37,6 +38,8 @@ public class StatusCommand extends Command {
                 break;
             case REPEAT_ONCE:
                 map.put("repeat", "Repeat Once");
+                break;
+            default:
                 break;
         }
 

@@ -3,8 +3,6 @@ package command.output;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import command.SearchCommand;
-import command.SelectCommand;
 
 
 @JsonTypeInfo(

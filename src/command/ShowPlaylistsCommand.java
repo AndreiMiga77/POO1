@@ -10,7 +10,7 @@ import library.User;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class ShowPlaylistsCommand extends Command {
+public final class ShowPlaylistsCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();

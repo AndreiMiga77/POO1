@@ -2,11 +2,10 @@ package command;
 
 import command.output.CommandOutput;
 import command.output.CreatePlaylistCommandOutput;
-import engine.Player;
 import library.Library;
 import library.User;
 
-public class CreatePlaylistCommand extends Command {
+public final class CreatePlaylistCommand extends Command {
     private String playlistName;
 
     public String getPlaylistName() {
@@ -18,9 +17,9 @@ public class CreatePlaylistCommand extends Command {
         Library library = Library.getInstance();
         User user = library.findUser(getUsername());
         String message;
-        if (user.getPlaylistByName(playlistName) != null)
+        if (user.getPlaylistByName(playlistName) != null) {
             message = "A playlist with the same name already exists.";
-        else {
+        } else {
             user.createPlaylist(playlistName, getTimestamp());
             message = "Playlist created successfully.";
         }

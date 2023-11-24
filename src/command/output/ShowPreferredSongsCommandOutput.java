@@ -1,15 +1,16 @@
 package command.output;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ShowPreferredSongsCommandOutput extends CommandOutput {
+public final class ShowPreferredSongsCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
     private ArrayList<String> result;
 
-    public ShowPreferredSongsCommandOutput(String user, Integer timestamp, List<String> songs) {
+    public ShowPreferredSongsCommandOutput(final String user,
+                                           final Integer timestamp,
+                                           final List<String> songs) {
         this.user = user;
         this.timestamp = timestamp;
         this.result = new ArrayList<>(songs);
@@ -19,7 +20,7 @@ public class ShowPreferredSongsCommandOutput extends CommandOutput {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -27,7 +28,7 @@ public class ShowPreferredSongsCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -35,7 +36,7 @@ public class ShowPreferredSongsCommandOutput extends CommandOutput {
         return result;
     }
 
-    public void setResult(ArrayList<String> res) {
+    public void setResult(final ArrayList<String> res) {
         result = res;
     }
 }

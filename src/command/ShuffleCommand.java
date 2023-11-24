@@ -6,7 +6,7 @@ import engine.Player;
 import library.Library;
 import library.User;
 
-public class ShuffleCommand extends Command {
+public final class ShuffleCommand extends Command {
     private Long seed;
 
     public Long getSeed() {

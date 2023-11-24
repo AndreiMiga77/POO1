@@ -2,14 +2,15 @@ package command.output;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
-public class ShowPlaylistsCommandOutput extends CommandOutput {
+public final class ShowPlaylistsCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
-    ArrayList<LinkedHashMap<String, Object>> result;
+    private ArrayList<LinkedHashMap<String, Object>> result;
 
-    public ShowPlaylistsCommandOutput(String user, Integer timestamp, ArrayList<LinkedHashMap<String, Object>> data) {
+    public ShowPlaylistsCommandOutput(final String user,
+                                      final Integer timestamp,
+                                      final ArrayList<LinkedHashMap<String, Object>> data) {
         this.user = user;
         this.timestamp = timestamp;
         this.result = data;
@@ -19,7 +20,7 @@ public class ShowPlaylistsCommandOutput extends CommandOutput {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -27,7 +28,7 @@ public class ShowPlaylistsCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -35,7 +36,7 @@ public class ShowPlaylistsCommandOutput extends CommandOutput {
         return result;
     }
 
-    public void setResult(ArrayList<LinkedHashMap<String, Object>> res) {
+    public void setResult(final ArrayList<LinkedHashMap<String, Object>> res) {
         result = res;
     }
 }

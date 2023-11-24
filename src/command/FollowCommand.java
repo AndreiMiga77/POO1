@@ -9,7 +9,7 @@ import library.User;
 
 import java.util.List;
 
-public class FollowCommand extends Command {
+public final class FollowCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
@@ -22,10 +22,10 @@ public class FollowCommand extends Command {
             Playable selected = lastSearch.get(user.getSelectedSource());
             if (!selected.allowsFollow()) {
                 message = "The selected source is not a playlist.";
-            } else if (user.getPlaylists().contains((Playlist)selected)) {
+            } else if (user.getPlaylists().contains((Playlist) selected)) {
                 message = "You cannot follow or unfollow your own playlist.";
             } else {
-                Playlist playlist = (Playlist)selected;
+                Playlist playlist = (Playlist) selected;
                 if (!user.hasFollowedPlaylist(playlist)) {
                     user.followPlaylist(playlist);
                     message = "Playlist followed successfully.";

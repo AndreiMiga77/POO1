@@ -1,14 +1,13 @@
 package engine;
 
 import library.Playable;
-import library.Playlist;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Player {
+public final class Player {
     public enum RepeatState {
         NO_REPEAT,
         REPEAT_ALL,
@@ -31,13 +30,17 @@ public class Player {
         timestampsRemembered = new HashMap<>();
     }
 
-    public void tickTime(int dif) {
-        if (!isLoaded())
+    public void tickTime(final int difTime) {
+        int dif = difTime;
+        if (!isLoaded()) {
             return;
-        if (isPaused())
+        }
+        if (isPaused()) {
             return;
-        if (current.getNumTracks() <= 0)
+        }
+        if (current.getNumTracks() <= 0) {
             return;
+        }
         int newTime = currentTime + dif;
         int currentTrackId = trackIndexList.get(currentTrackIndex);
         if (currentTime + dif < current.getTrack(currentTrackId).getDuration()) {
@@ -63,14 +66,16 @@ public class Player {
             } else if (repeatState == RepeatState.REPEAT_ALL) {
                 currentTime = 0;
                 currentTrackIndex = 0;
-                if (dif > 0)
+                if (dif > 0) {
                     tickTime(dif);
+                }
             } else if (repeatState == RepeatState.REPEAT_ONCE) {
                 currentTime = 0;
                 currentTrackIndex = 0;
                 repeatState = RepeatState.NO_REPEAT;
-                if (dif > 0)
+                if (dif > 0) {
                     tickTime(dif);
+                }
             }
         }
     }
@@ -79,9 +84,10 @@ public class Player {
         return current != null;
     }
 
-    public void load(Playable track) {
-        if (isLoaded())
+    public void load(final Playable track) {
+        if (isLoaded()) {
             unload();
+        }
         shuffled = false;
         paused = false;
         current = track;
@@ -108,13 +114,15 @@ public class Player {
     }
 
     public void unload() {
-        if (current == null)
+        if (current == null) {
             return;
+        }
         int currentTrackId = trackIndexList.get(currentTrackIndex);
         if (current.remembersTimestamp()) {
             int prevTime = 0;
-            for (int i = 0; i < currentTrackId; i++)
+            for (int i = 0; i < currentTrackId; i++) {
                 prevTime += current.getTrack(i).getDuration();
+            }
             timestampsRemembered.put(current, prevTime + currentTime);
         }
         current = null;

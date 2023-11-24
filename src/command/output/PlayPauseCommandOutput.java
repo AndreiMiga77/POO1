@@ -1,11 +1,11 @@
 package command.output;
 
-public class PlayPauseCommandOutput extends CommandOutput {
+public final class PlayPauseCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
     private String message;
-    public PlayPauseCommandOutput(String user, Integer timestamp, String message) {
-        this.user = user;
+    public PlayPauseCommandOutput(final String usr, final Integer timestamp, final String message) {
+        this.user = usr;
         this.timestamp = timestamp;
         this.message = message;
     }
@@ -14,7 +14,7 @@ public class PlayPauseCommandOutput extends CommandOutput {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -22,7 +22,7 @@ public class PlayPauseCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -30,7 +30,7 @@ public class PlayPauseCommandOutput extends CommandOutput {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

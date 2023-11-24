@@ -6,13 +6,13 @@ import engine.Player;
 import library.Library;
 import library.User;
 
-public class RepeatCommand extends Command {
+public final class RepeatCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
         User user = library.findUser(getUsername());
         Player player = user.getPlayer();
-        String message = null;
+        String message;
         if (!player.isLoaded()) {
             message = "Please load a source before setting the repeat status.";
         } else {

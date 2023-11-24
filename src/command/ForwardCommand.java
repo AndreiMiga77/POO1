@@ -6,7 +6,8 @@ import engine.Player;
 import library.Library;
 import library.User;
 
-public class ForwardCommand extends Command {
+public final class ForwardCommand extends Command {
+    public static final int NUM_SECONDS = 90;
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
@@ -18,7 +19,7 @@ public class ForwardCommand extends Command {
         } else if (!player.getCurrent().isSeekable()) {
             message = "The loaded source is not a podcast.";
         } else {
-            player.seekForward(90);
+            player.seekForward(NUM_SECONDS);
             message = "Skipped forward successfully.";
         }
         return new ForwardCommandOutput(getUsername(), getTimestamp(), message);

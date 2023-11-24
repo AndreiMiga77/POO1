@@ -1,17 +1,17 @@
 package command.output;
 
-import command.output.CommandOutput;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SearchCommandOutput extends CommandOutput {
+public final class SearchCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
     private String message;
     private ArrayList<String> results;
-    public SearchCommandOutput(String user, Integer timestamp, String message, List<String> results) {
+    public SearchCommandOutput(final String user,
+                               final Integer timestamp,
+                               final String message,
+                               final List<String> results) {
         this.user = user;
         this.timestamp = timestamp;
         this.message = message;
@@ -22,7 +22,7 @@ public class SearchCommandOutput extends CommandOutput {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -30,7 +30,7 @@ public class SearchCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -38,7 +38,7 @@ public class SearchCommandOutput extends CommandOutput {
         return results;
     }
 
-    public void setResults(ArrayList<String> res) {
+    public void setResults(final ArrayList<String> res) {
         results = res;
     }
 
@@ -46,7 +46,7 @@ public class SearchCommandOutput extends CommandOutput {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

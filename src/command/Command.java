@@ -35,19 +35,19 @@ public abstract class Command {
     private String username;
     private Integer timestamp;
 
-    public String getUsername() {
+    public final String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public final void setUsername(final String username) {
         this.username = username;
     }
 
-    public Integer getTimestamp() {
+    public final Integer getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public final void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 

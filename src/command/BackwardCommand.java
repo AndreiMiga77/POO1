@@ -2,12 +2,12 @@ package command;
 
 import command.output.BackwardCommandOutput;
 import command.output.CommandOutput;
-import command.output.ForwardCommandOutput;
 import engine.Player;
 import library.Library;
 import library.User;
 
-public class BackwardCommand extends Command {
+public final class BackwardCommand extends Command {
+    public static final int NUM_SECONDS = 90;
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
@@ -19,7 +19,7 @@ public class BackwardCommand extends Command {
         } else if (!player.getCurrent().isSeekable()) {
             message = "The loaded source is not a podcast.";
         } else {
-            player.seekBackward(90);
+            player.seekBackward(NUM_SECONDS);
             message = "Rewound successfully.";
         }
         return new BackwardCommandOutput(getUsername(), getTimestamp(), message);

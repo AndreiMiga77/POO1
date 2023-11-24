@@ -6,7 +6,7 @@ import engine.Player;
 import library.Library;
 import library.User;
 
-public class PrevCommand extends Command {
+public final class PrevCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();

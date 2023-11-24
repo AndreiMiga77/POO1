@@ -4,7 +4,7 @@ import command.Command;
 import command.output.CommandOutput;
 import library.Library;
 
-public class CommandProcessor {
+public final class CommandProcessor {
     private static CommandProcessor instance;
 
     public static void createCommandProcessor() {
@@ -19,11 +19,11 @@ public class CommandProcessor {
     private CommandProcessor() {
     }
 
-    public CommandOutput execute(Command cmd) {
-        int timestamp = cmd.getTimestamp();
-        int dif_time = timestamp - this.timestamp;
-        this.timestamp = timestamp;
-        Library.getInstance().tickTime(dif_time);
+    public CommandOutput execute(final Command cmd) {
+        int time = cmd.getTimestamp();
+        int difTime = time - timestamp;
+        timestamp = time;
+        Library.getInstance().tickTime(difTime);
         return cmd.execute();
     }
 }

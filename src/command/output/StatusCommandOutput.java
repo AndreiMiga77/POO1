@@ -3,11 +3,13 @@ package command.output;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class StatusCommandOutput extends CommandOutput {
+public final class StatusCommandOutput extends CommandOutput {
     private String user;
     private Integer timestamp;
-    LinkedHashMap<String, Object> stats;
-    public StatusCommandOutput(String user, Integer timestamp, LinkedHashMap<String, Object> stats) {
+    private LinkedHashMap<String, Object> stats;
+    public StatusCommandOutput(final String user,
+                               final Integer timestamp,
+                               final LinkedHashMap<String, Object> stats) {
         this.user = user;
         this.timestamp = timestamp;
         this.stats = stats;
@@ -17,7 +19,7 @@ public class StatusCommandOutput extends CommandOutput {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -25,7 +27,7 @@ public class StatusCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -33,7 +35,7 @@ public class StatusCommandOutput extends CommandOutput {
         return stats;
     }
 
-    public void setStats(LinkedHashMap<String, Object> stats) {
+    public void setStats(final LinkedHashMap<String, Object> stats) {
         this.stats = stats;
     }
 }

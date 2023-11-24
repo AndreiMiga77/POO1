@@ -3,11 +3,11 @@ package command.output;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetTop5PlaylistsCommandOutput extends CommandOutput {
+public final class GetTop5PlaylistsCommandOutput extends CommandOutput {
     private Integer timestamp;
     private ArrayList<String> result;
 
-    public GetTop5PlaylistsCommandOutput(Integer timestamp, List<String> playlists) {
+    public GetTop5PlaylistsCommandOutput(final Integer timestamp, final List<String> playlists) {
         this.timestamp = timestamp;
         this.result = new ArrayList<>(playlists);
     }
@@ -16,7 +16,7 @@ public class GetTop5PlaylistsCommandOutput extends CommandOutput {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -24,7 +24,7 @@ public class GetTop5PlaylistsCommandOutput extends CommandOutput {
         return result;
     }
 
-    public void setResult(ArrayList<String> res) {
-        result = res;
+    public void setResult(final ArrayList<String> result) {
+        this.result = result;
     }
 }

@@ -7,19 +7,19 @@ import library.Library;
 import library.Song;
 import library.User;
 
-public class LikeCommand extends Command {
+public final class LikeCommand extends Command {
     @Override
     public CommandOutput execute() {
         Library library = Library.getInstance();
         User user = library.findUser(getUsername());
         Player player = user.getPlayer();
         String message;
-        if (!player.isLoaded())
+        if (!player.isLoaded()) {
             message = "Please load a source before liking or unliking.";
-        else if (!player.getCurrentTrack().allowsLike())
+        } else if (!player.getCurrentTrack().allowsLike()) {
             message = "Loaded source is not a song.";
-        else {
-            Song song = (Song)player.getCurrentTrack();
+        } else {
+            Song song = (Song) player.getCurrentTrack();
             if (!user.hasLikedSong(song)) {
                 user.likeSong(song);
                 message = "Like registered successfully.";
