@@ -25,10 +25,10 @@ public final class ShuffleCommand extends Command {
             message = "The loaded source is not a playlist.";
         } else {
             if (player.isShuffled()) {
-                player.unshuffleSource();
+                player.unshuffle();
                 message = "Shuffle function deactivated successfully.";
             } else {
-                player.shuffleSource(seed);
+                player.shuffle(seed);
                 message = "Shuffle function activated successfully.";
             }
         }

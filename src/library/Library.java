@@ -15,6 +15,9 @@ import fileio.input.UserInput;
 public final class Library {
     private static Library instance;
 
+    /**
+     * Create a global library instance
+     */
     public static void createLibrary(final LibraryInput libInput) {
         instance = new Library(libInput);
     }
@@ -55,6 +58,9 @@ public final class Library {
         return Collections.unmodifiableList(podcasts);
     }
 
+    /**
+     * Get a list of all public playlists owned by all users
+     */
     public ArrayList<Playlist> getPublicPlaylists() {
         ArrayList<Playlist> playlists = new ArrayList<>();
         for (User u : users) {
@@ -64,17 +70,29 @@ public final class Library {
         return playlists;
     }
 
+    /**
+     * Advance the time for each user's audio player
+     * @param dif number of seconds to advance time
+     */
     public void tickTime(final int dif) {
         for (User u : users) {
             u.getPlayer().tickTime(dif);
         }
     }
 
+    /**
+     * Find a user
+     * @param username user's username
+     */
     public User findUser(final String username) {
         Stream<User> stream = users.stream();
         return stream.filter(user -> user.getUsername().equals(username)).findAny().orElse(null);
     }
 
+    /**
+     * Find songs that meet certain criteria
+     * @param filters criteria to apply
+     */
     public ArrayList<Song> findSongsByFilter(final Map<String, Object> filters) {
         ArrayList<Song> filteredSongs = new ArrayList<>(songs);
         if (filters.containsKey("name")) {
@@ -114,6 +132,10 @@ public final class Library {
         return filteredSongs;
     }
 
+    /**
+     * Find podcasts that meet certain criteria
+     * @param filters criteria to apply
+     */
     public ArrayList<Podcast> findPodcastsByFilter(final Map<String, Object> filters) {
         ArrayList<Podcast> filteredPodcasts = new ArrayList<>(podcasts);
         if (filters.containsKey("name")) {
@@ -127,6 +149,11 @@ public final class Library {
         return filteredPodcasts;
     }
 
+    /**
+     * Find playlists that meet certain criteria
+     * @param filters criteria to apply
+     * @param user private playlists are included only from this user
+     */
     public ArrayList<Playlist> findPlaylistsByFilter(final Map<String, Object> filters,
                                                      final User user) {
         ArrayList<Playlist> filteredPlaylists = new ArrayList<>();

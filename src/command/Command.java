@@ -51,5 +51,9 @@ public abstract class Command {
         this.timestamp = timestamp;
     }
 
+    /**
+     * Execute the command
+     * @return command's output (suitable for processing by ObjectMapper)
+     */
     public abstract CommandOutput execute();
 }

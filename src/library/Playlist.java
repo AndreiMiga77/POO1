@@ -34,10 +34,18 @@ public final class Playlist implements Playable {
         return Collections.unmodifiableList(songs);
     }
 
+    /**
+     * Add a song
+     * @param song song to add
+     */
     public void addSong(final Song song) {
         songs.add(song);
     }
 
+    /**
+     * Remove a song
+     * @param song song to remove
+     */
     public void removeSong(final Song song) {
         songs.remove(song);
     }
@@ -54,10 +62,16 @@ public final class Playlist implements Playable {
         return followers;
     }
 
+    /**
+     * Receive a follower
+     */
     public void addFollower() {
         followers++;
     }
 
+    /**
+     * Lose a follower
+     */
     public void removeFollower() {
         followers--;
     }

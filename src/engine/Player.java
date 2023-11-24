@@ -30,6 +30,10 @@ public final class Player {
         timestampsRemembered = new HashMap<>();
     }
 
+    /**
+     * Advance the time for the audio player
+     * @param difTime number of seconds to advance time
+     */
     public void tickTime(final int difTime) {
         int dif = difTime;
         if (!isLoaded()) {
@@ -80,10 +84,17 @@ public final class Player {
         }
     }
 
+    /**
+     * Whether there's any source loaded in the music player
+     */
     public boolean isLoaded() {
         return current != null;
     }
 
+    /**
+     * Load a source and start playback
+     * @param track source to load
+     */
     public void load(final Playable track) {
         if (isLoaded()) {
             unload();
@@ -113,6 +124,9 @@ public final class Player {
         currentTrackIndex = 0;
     }
 
+    /**
+     * Unloads the current source (if any) and pauses playback
+     */
     public void unload() {
         if (current == null) {
             return;
@@ -132,23 +146,39 @@ public final class Player {
         repeatState = RepeatState.NO_REPEAT;
     }
 
+    /**
+     * Whether the music player is paused
+     */
     public boolean isPaused() {
         return paused;
     }
 
+    /**
+     * Unpause the music player
+     */
     public void resume() {
         paused = false;
     }
 
+    /**
+     * Pause the music player
+     */
     public void pause() {
         paused = true;
     }
 
+    /**
+     * Skip the current track
+     */
     public void skip() {
         paused = false;
         tickTime(getTimeRemaining());
     }
 
+    /**
+     * Rewind the current track to the beginning
+     * If already at the beginning, go back one track
+     */
     public void rewind() {
         paused = false;
         if (currentTime == 0 && currentTrackIndex > 0) {
@@ -157,6 +187,10 @@ public final class Player {
         currentTime = 0;
     }
 
+    /**
+     * Seek forward
+     * @param time number of seconds to seek
+     */
     public void seekForward(final int time) {
         if (getTimeRemaining() < time) {
             skip();
@@ -165,6 +199,10 @@ public final class Player {
         }
     }
 
+    /**
+     * Seek backward
+     * @param time number of seconds to seek
+     */
     public void seekBackward(final int time) {
         if (currentTime <= time) {
             currentTime = 0;
@@ -173,11 +211,18 @@ public final class Player {
         }
     }
 
+    /**
+     * Whether the tracks are shuffled
+     */
     public boolean isShuffled() {
         return shuffled;
     }
 
-    public void shuffleSource(final long seed) {
+    /**
+     * Shuffle the tracks
+     * @param seed for the shuffling algorithm
+     */
+    public void shuffle(final long seed) {
         Collections.shuffle(trackIndexList, new Random(seed));
         for (int i = 0; i < trackIndexList.size(); i++) {
             if (trackIndexList.get(i) == currentTrackIndex) {
@@ -188,7 +233,10 @@ public final class Player {
         shuffled = true;
     }
 
-    public void unshuffleSource() {
+    /**
+     * Unshuffle the tracks (return to playlist order)
+     */
+    public void unshuffle() {
         currentTrackIndex = trackIndexList.get(currentTrackIndex);
         for (int i = 0; i < trackIndexList.size(); i++) {
             trackIndexList.set(i, i);
@@ -196,6 +244,9 @@ public final class Player {
         shuffled = false;
     }
 
+    /**
+     * Currently loaded track
+     */
     public Playable getCurrentTrack() {
         if (current == null) {
             return null;
@@ -209,10 +260,16 @@ public final class Player {
         return current.getTrack(trackIndexList.get(currentTrackIndex));
     }
 
+    /**
+     * Currently loaded source
+     */
     public Playable getCurrent() {
         return current;
     }
 
+    /**
+     * Time left for the current track
+     */
     public int getTimeRemaining() {
         if (current == null) {
             return 0;

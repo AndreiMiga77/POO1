@@ -66,10 +66,16 @@ public final class Song implements Playable {
         return likes;
     }
 
+    /**
+     * Receive a like
+     */
     public void addLike() {
         likes++;
     }
 
+    /**
+     * Lose a like
+     */
     public void removeLike() {
         likes--;
     }
